@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LifeSync — Habits &amp; Productivity Planner</title>
+  <meta name="description" content="LifeSync helps you build habits, track goals, and boost productivity — all in one beautifully designed app." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:         #0B3948;
+      --primary-light:   #416165;
+      --primary-dark:    #072530;
+      --primary-soft:    #D9DBF1;
+      --secondary-light: #6A9094;
+      --secondary-soft:  #D0CDD7;
+      --bg:              #111214;
+      --bg2:             #181A1D;
+      --bg3:             #22252A;
+      --border:          rgba(52,56,64,0.9);
+      --border-strong:   rgba(65,97,101,0.55);
+      --text:            #F3F4F6;
+      --text-muted:      #B8BDC7;
+      --text-hint:       #7C828C;
+      --accent-soft:     #2E3238;
+      --periwinkle:      #D9DBF1;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      background: rgba(17,18,20,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+    }
+
+    .nav-mark {
+      width: 32px; height: 32px;
+      background: var(--primary); border-radius: 8px;
+      border: 0.5px solid var(--primary-light);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-mark svg { width: 17px; height: 17px; fill: var(--periwinkle); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+
+    .glow1 {
+      position: absolute; top: -150px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(11,57,72,0.5) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .glow2 {
+      position: absolute; bottom: -60px; left: 15%;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(65,97,101,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 660px; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(11,57,72,0.35);
+      border: 0.5px solid rgba(65,97,101,0.5);
+      color: var(--periwinkle);
+      font-size: 0.75rem; padding: 5px 14px;
+      border-radius: 99px; margin-bottom: 1.75rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    .badge svg { width: 11px; height: 11px; fill: var(--secondary-light); }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800; line-height: 1.08;
+      letter-spacing: -0.03em; margin-bottom: 1.4rem;
+    }
+
+    h1 .teal { color: var(--secondary-light); }
+
+    .hero p {
+      font-size: 1.1rem; color: var(--text-muted);
+      max-width: 510px; margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+
+    .ctas { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-p {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--primary); color: var(--periwinkle);
+      text-decoration: none; padding: 0.85rem 1.7rem;
+      border-radius: 11px; font-weight: 600; font-size: 0.95rem;
+      border: 0.5px solid var(--primary-light);
+      transition: background 0.2s, transform 0.15s; cursor: pointer;
+    }
+
+    .btn-p:hover { background: var(--primary-light); transform: translateY(-2px); }
+    .btn-p svg { width: 17px; height: 17px; fill: currentColor; }
+
+    .btn-o {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--text);
+      text-decoration: none; padding: 0.85rem 1.7rem;
+      border-radius: 11px; font-weight: 600; font-size: 0.95rem;
+      border: 0.5px solid var(--border-strong);
+      transition: background 0.2s, transform 0.15s; cursor: pointer;
+    }
+
+    .btn-o:hover { background: var(--accent-soft); transform: translateY(-2px); }
+
+    /* STATS */
+    .stats {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+      padding: 2.5rem 1.5rem 3rem;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      background: var(--bg2);
+    }
+
+    .stat { text-align: center; }
+    .stat-n { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; }
+    .stat-n span { color: var(--secondary-light); }
+    .stat-l { font-size: 0.8rem; color: var(--text-hint); margin-top: 2px; }
+
+    /* SECTIONS */
+    section { padding: 5.5rem 1.5rem; max-width: 1000px; margin: 0 auto; }
+    section.narrow { max-width: 680px; }
+    section.mid { max-width: 860px; }
+
+    .eyebrow {
+      text-align: center; font-size: 0.73rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--secondary-light); margin-bottom: 0.55rem; font-weight: 600;
+    }
+
+    .sec-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.65rem;
+    }
+
+    .sec-sub { text-align: center; color: var(--text-muted); font-size: 1rem; margin-bottom: 3rem; }
+
+    hr { border: none; border-top: 0.5px solid var(--border); max-width: 1000px; margin: 0 auto; }
+
+    /* DOWNLOAD CARDS */
+    .dl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .dl-card {
+      background: var(--bg2); border: 0.5px solid var(--border);
+      border-radius: 18px; padding: 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+
+    .dl-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light), transparent);
+      opacity: 0; transition: opacity 0.25s;
+    }
+
+    .dl-card:hover { border-color: var(--border-strong); transform: translateY(-4px); }
+    .dl-card:hover::before { opacity: 1; }
+
+    .dl-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(11,57,72,0.35);
+      border: 0.5px solid rgba(65,97,101,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .dl-icon svg { width: 24px; height: 24px; }
+    .dl-card h3 { font-size: 1.15rem; font-weight: 700; }
+    .dl-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.55; }
+
+    .tags { display: flex; gap: 7px; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 0.7rem; padding: 3px 10px; border-radius: 99px;
+      background: rgba(217,219,241,0.07); color: var(--periwinkle);
+      border: 0.5px solid rgba(217,219,241,0.18);
+    }
+
+    .btn-dl {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--primary); color: var(--periwinkle);
+      text-decoration: none; padding: 0.75rem 1.35rem;
+      border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+      border: 0.5px solid var(--primary-light);
+      transition: background 0.2s, transform 0.15s; margin-top: auto;
+    }
+
+    .btn-dl:hover { background: var(--primary-light); transform: translateY(-1px); }
+    .btn-dl svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* FEATURE CARDS */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+
+    .feat-card {
+      background: var(--bg2); border: 0.5px solid var(--border);
+      border-radius: 14px; padding: 1.4rem;
+      transition: border-color 0.2s;
+    }
+
+    .feat-card:hover { border-color: var(--border-strong); }
+
+    .feat-icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      background: rgba(11,57,72,0.4);
+      border: 0.5px solid rgba(65,97,101,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .feat-icon svg { width: 19px; height: 19px; fill: var(--secondary-light); }
+    .feat-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .feat-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+
+    .step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      background: var(--bg2); border: 0.5px solid var(--border);
+      border-radius: 13px; padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .step:hover { border-color: var(--border-strong); }
+
+    .step-n {
+      flex-shrink: 0; width: 29px; height: 29px;
+      background: var(--primary); border: 0.5px solid var(--primary-light);
+      border-radius: 7px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; color: var(--periwinkle);
+    }
+
+    .step h4 { font-size: 0.93rem; font-weight: 700; margin-bottom: 3px; }
+    .step p { font-size: 0.84rem; color: var(--text-muted); }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      max-width: 1000px; margin: 0 auto;
+    }
+
+    .foot-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 700; font-size: 0.92rem;
+      color: var(--text-muted); text-decoration: none;
+    }
+
+    .foot-mark {
+      width: 25px; height: 25px; background: var(--primary);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    }
+
+    .foot-mark svg { width: 13px; height: 13px; fill: var(--periwinkle); }
+    footer p { font-size: 0.8rem; color: var(--text-hint); }
+
+    .foot-links { display: flex; gap: 1.5rem; list-style: none; }
+    .foot-links a { color: var(--text-hint); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--text-muted); }
+
+    @media (max-width: 600px) {
+      nav .nav-links { display: none; }
+      .stats { gap: 1.5rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+    </div>
+    LifeSync
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#download">Download</a></li>
+    <li><a href="#about">How it works</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+  <div class="hero-inner">
+    <div class="badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Habit tracking &amp; productivity
+    </div>
+    <h1>Build better habits.<br><span class="teal">Sync your life.</span></h1>
+    <p>LifeSync is your all-in-one planner for habits, goals, and daily routines — designed to help you show up consistently, every single day.</p>
+    <div class="ctas">
+      <a href="#download" class="btn-p">
+        <svg viewBox="0 0 24 24"><path d="M13 5v6h1.17L12 13.17 9.83 11H11V5h2m2-2H9v6H5l7 7 7-7h-4V3m4 15H5v2h14v-2z"/></svg>
+        Download Free
+      </a>
+      <a href="#features" class="btn-o">See Features</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-n">100<span>%</span></div>
+    <div class="stat-l">Free to download</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">2</div>
+    <div class="stat-l">Platforms supported</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">0</div>
+    <div class="stat-l">Accounts required</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n"><span>∞</span></div>
+    <div class="stat-l">Habits to track</div>
+  </div>
+</div>
+
+<section class="mid" id="download">
+  <p class="eyebrow">Get the app</p>
+  <h2 class="sec-title">Download LifeSync</h2>
+  <p class="sec-sub">Available for Windows and Android. Just download and start planning.</p>
+
+  <div class="dl-grid">
+    <div class="dl-card">
+      <div class="dl-icon">
+        <svg viewBox="0 0 24 24" fill="#D9DBF1"><path d="M3 12V6.75l6-1.32v6.57H3zm17 0V3l-9 1.72v7.28H20zM3 13h6v6.57l-6-1.32V13zm17 0h-9v7.28L20 22v-9z"/></svg>
+      </div>
+      <h3>Windows</h3>
+      <p>Full-featured desktop experience on Windows 10 and above. Install once, use every day.</p>
+      <div class="tags">
+        <span class="tag">.exe installer</span>
+        <span class="tag">Windows 10+</span>
+        <span class="tag">64-bit</span>
+      </div>
+      <a href="LifeSync-Setup.exe" download class="btn-dl">
+        <svg viewBox="0 0 24 24"><path d="M13 5v6h1.17L12 13.17 9.83 11H11V5h2m2-2H9v6H5l7 7 7-7h-4V3m4 15H5v2h14v-2z"/></svg>
+        Download for Windows
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-icon">
+        <svg viewBox="0 0 24 24" fill="#4CAF82"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48A5.84 5.84 0 0 0 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C7.08 3.04 6 4.6 6 6.5h12c0-1.9-1.08-3.46-2.47-4.34zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+      </div>
+      <h3>Android</h3>
+      <p>Take LifeSync everywhere. Built for phones and tablets running Android 8 and above.</p>
+      <div class="tags">
+        <span class="tag">.apk file</span>
+        <span class="tag">Android 8+</span>
+        <span class="tag">Sideload</span>
+      </div>
+      <a href="LifeSync.apk" download class="btn-dl">
+        <svg viewBox="0 0 24 24"><path d="M13 5v6h1.17L12 13.17 9.83 11H11V5h2m2-2H9v6H5l7 7 7-7h-4V3m4 15H5v2h14v-2z"/></svg>
+        Download for Android
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<section id="features">
+  <p class="eyebrow">What's inside</p>
+  <h2 class="sec-title">Everything you need</h2>
+  <p class="sec-sub">From daily habits to long-term goals — LifeSync keeps it all in one place.</p>
+
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></div>
+      <h4>Habit tracker</h4>
+      <p>Build daily streaks and track every routine with a satisfying check-in system.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zm0-12H5V5h14v2z"/></svg></div>
+      <h4>Goal planner</h4>
+      <p>Break ambitious goals into milestones and stay motivated with clear progress views.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></div>
+      <h4>Progress charts</h4>
+      <p>Visual streak calendars and completion graphs that make growth feel real.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></div>
+      <h4>Smart reminders</h4>
+      <p>Context-aware notifications that nudge you at the right moment, never annoyingly.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg></div>
+      <h4>Daily insights</h4>
+      <p>Understand patterns in your behavior with weekly and monthly productivity reports.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+      <h4>Private by design</h4>
+      <p>Everything stays on your device. No account, no cloud, no data collection.</p>
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<section class="narrow" id="about">
+  <p class="eyebrow">Getting started</p>
+  <h2 class="sec-title">Up and running in minutes</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div>
+        <h4>Download for your platform</h4>
+        <p>Grab the .exe for Windows or the .apk for Android. No sign-up, no account needed — just install and open.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div>
+        <h4>Set up your habits and goals</h4>
+        <p>Tell LifeSync what you want to track. Add your first habit in under 30 seconds.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div>
+        <h4>Check in every day</h4>
+        <p>Open the app, mark your habits done, review your progress, and keep the streak alive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<footer>
+  <a href="#" class="foot-logo">
+    <div class="foot-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+    </div>
+    LifeSync
+  </a>
+  <p>© 2026 LifeSync. All rights reserved.</p>
+  <ul class="foot-links">
+    <li><a href="#download">Download</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
