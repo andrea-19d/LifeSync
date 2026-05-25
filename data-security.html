@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Security Requirements | LifeSync</title>
+  <meta name="description" content="LifeSync data security requirements and safeguards for website and app users." />
+  <link rel="canonical" href="https://www.lifesyncdownload.com/data-security.html" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body>
+<nav>
+  <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></span>LifeSync</a>
+  <ul class="nav-links"><li><a href="legal-index.html">Legal pages</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="payment-security.html">Payments</a></li></ul>
+</nav>
+<main>
+  <p class="eyebrow">Security</p>
+  <h1>Data Security Requirements</h1>
+  <p class="lead">This page describes LifeSync's general data security approach for the website and app features found in the current codebase.</p>
+  <div class="meta"><span class="pill">Last updated: May 25, 2026</span></div>
+
+  <div class="panel">
+    <h2>Security posture</h2>
+    <p>LifeSync uses Firebase Authentication and Firestore for account-based cloud sync, plus local storage for settings, device IDs, OAuth credentials, and cached health/screen-time data. Because the app processes health, calendar, task, app usage, and productivity data, security controls should treat this information as sensitive.</p>
+  </div>
+
+  <h2>Security controls</h2>
+  <ul>
+    <li>Use Firebase Authentication for account access and require authentication before reading or writing user data.</li>
+    <li>Store OAuth/calendar credentials in secure local storage, not in Firestore.</li>
+    <li>Protect device-local databases and preferences with operating-system controls where available.</li>
+    <li>Request Health Connect, Apple Health, notification listener, app usage, overlay, and calendar permissions only for the related feature.</li>
+    <li>Keep Firebase rules restrictive. The reviewed Firestore rule allows any authenticated user to read/write any document, so it should be narrowed to per-user access before production use.</li>
+    <li>Use TLS/WSS for production API and WebSocket endpoints. The current WebSocket config uses local ws:// endpoints in debug and a placeholder production WSS URL.</li>
+    <li>Review Firebase, Google, Microsoft, health, notification, and app-usage dependencies before release and patch known vulnerabilities.</li>
+    <li>Avoid storing payment card data, passwords, or unnecessary sensitive data in Firestore or local preferences.</li>
+  </ul>
+
+  <h2>User responsibilities</h2>
+  <p>Users should download LifeSync only from official LifeSync links, keep their operating system updated, review optional permissions before enabling them, and protect device access with a strong password, PIN, biometric lock, or equivalent control.</p>
+
+  <h2>Security notices</h2>
+  <p>If a future feature creates a risk of unauthorized access to personal data, LifeSync should investigate, mitigate, document the event, and provide any legally required notices.</p>
+
+  <h2>Official references</h2>
+  <ul>
+    <li><a href="https://www.ftc.gov/business-guidance/privacy-security/data-security">FTC data security guidance</a></li>
+    <li><a href="https://commission.europa.eu/law/law-topic/data-protection/reform/what-does-general-data-protection-regulation-gdpr-govern_en">European Commission GDPR overview</a></li>
+  </ul>
+
+  <p class="note">No method of electronic storage or transmission can be guaranteed to be completely secure.</p>
+</main>
+<footer>&copy; 2026 LifeSync. <a href="legal-index.html">Legal pages</a></footer>
+</body>
+</html>

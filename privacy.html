@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Privacy Laws | LifeSync</title>
+  <meta name="description" content="LifeSync data privacy notice covering GDPR, CCPA/CPRA, personal data practices, and privacy rights." />
+  <link rel="canonical" href="https://www.lifesyncdownload.com/privacy.html" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body>
+<nav>
+  <a href="index.html" class="brand"><span class="mark"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></span>LifeSync</a>
+  <ul class="nav-links"><li><a href="legal-index.html">Legal pages</a></li><li><a href="cookies.html">Cookies</a></li><li><a href="data-security.html">Security</a></li></ul>
+</nav>
+<main>
+  <p class="eyebrow">Privacy</p>
+  <h1>Data Privacy Laws</h1>
+  <p class="lead">This page explains LifeSync's privacy position for laws such as the GDPR, UK GDPR, CCPA/CPRA, and similar privacy frameworks, based on the current LifeSync app functionality.</p>
+  <div class="meta"><span class="pill">Last updated: May 25, 2026</span></div>
+
+  <div class="panel">
+    <h2>Current data processing</h2>
+    <p>LifeSync uses account-based functionality. The app supports Firebase email/password authentication and Google Sign-In. The main in-app areas are protected by login and sync user data to Firebase Firestore.</p>
+    <p>LifeSync also stores some data locally on the device, including settings, device identifiers, OAuth/calendar connection state, notification-window settings, app-blocking settings, health cache data, and screen-time cache data.</p>
+  </div>
+
+  <h2>Data LifeSync may process</h2>
+  <ul>
+    <li>Account data: user ID, email address, display name, profile photo URL, account timestamps, and onboarding status.</li>
+    <li>Onboarding preferences: goals, improvement areas, hobbies, skills, available daily time, work style, and active time preferences.</li>
+    <li>Tasks and reminders: titles, descriptions, categories, priorities, tags, due dates, reminder times, completion status, generated onboarding tasks, and external calendar IDs.</li>
+    <li>Health and wellness data, when permission is granted: steps, sleep, heart rate, calories, active minutes, health reminders, blocked app settings, and wellness settings.</li>
+    <li>App usage and screen-time data: package/app names, executable names or paths on desktop, start/end times, duration, daily aggregates, session logs, and selected blocked apps.</li>
+    <li>Focus timer data: Pomodoro settings, focus sessions, status, duration, start/completion times, and completed session counts.</li>
+    <li>Whiteboard and mind map content: board names, drawings, text nodes, cursor/collaboration messages, mind map nodes, notes, edges, colors, and layout information.</li>
+    <li>Calendar integration data: Google Calendar and Microsoft Outlook connection state, OAuth tokens stored in secure local storage, calendar event IDs, calendar IDs, task/event content sent to the selected calendar provider, and imported Google event metadata.</li>
+    <li>Device data: a locally generated device UUID and platform name used to merge synced health data across devices.</li>
+  </ul>
+
+  <h2>Purposes</h2>
+  <p>LifeSync processes this data to create and manage accounts, sync user content across devices, generate onboarding tasks, show dashboards and statistics, send reminders, read health and screen-time information with permission, block or limit selected apps, sync tasks with calendars, support live whiteboard collaboration, and maintain app reliability.</p>
+
+  <h2>Third-party services</h2>
+  <p>LifeSync uses Firebase Authentication and Firestore for accounts and cloud data. The codebase includes Firebase Analytics, Crashlytics, Messaging, Storage, and Cloud Functions dependencies, but no explicit app calls to Analytics, Crashlytics, Messaging, Storage uploads, or Cloud Functions were found in the reviewed code. Google Sign-In, Google Calendar APIs, Microsoft Graph/Outlook Calendar APIs, Health Connect or Apple Health, and a WebSocket whiteboard server may process data when those features are used.</p>
+
+  <h2>Local permissions</h2>
+  <p>On Android, LifeSync requests permissions related to Health Connect, activity recognition, app usage access, overlay display, foreground service, exact alarms, notifications, vibration, wake lock, boot completion, and notification listener access. Some permissions are optional feature permissions and are needed only for the related feature.</p>
+
+  <h2>Privacy principles</h2>
+  <ul>
+    <li>Use data for clear product purposes such as sync, reminders, statistics, health insights, app blocking, and calendar integration.</li>
+    <li>Collect sensitive health, app usage, notification, and calendar data only when the user enables or authorizes the related feature.</li>
+    <li>Limit access to user-specific Firestore data through authenticated user accounts.</li>
+    <li>Keep OAuth/calendar credentials in secure local storage where the integration requires them.</li>
+    <li>Give users a practical way to request access, correction, deletion, restriction, portability, or opt-out where applicable law grants those rights.</li>
+  </ul>
+
+  <h2>GDPR and UK GDPR</h2>
+  <p>For EEA or UK users, personal data should be processed under an appropriate lawful basis, such as performance of the service requested by the user, consent for optional permissions or integrations, legitimate interests for security and reliability, or legal obligation where applicable. Health and similar sensitive data may require explicit permission or another valid legal basis depending on jurisdiction.</p>
+
+  <h2>CCPA and CPRA</h2>
+  <p>LifeSync does not currently include advertising SDKs, targeted advertising code, or payment checkout in the reviewed app. No sale or sharing of personal information for cross-context behavioral advertising was found. Eligible California residents may have rights to know, delete, correct, limit certain sensitive information, and opt out of sale or sharing if applicable.</p>
+
+  <h2>Children's privacy</h2>
+  <p>LifeSync is not directed to children under 13 and does not knowingly collect personal information from children through this website.</p>
+
+  <h2>Official references</h2>
+  <ul>
+    <li><a href="https://commission.europa.eu/law/law-topic/data-protection/reform/what-does-general-data-protection-regulation-gdpr-govern_en">European Commission GDPR overview</a></li>
+    <li><a href="https://privacy.ca.gov/california-privacy-rights/rights-under-the-california-consumer-privacy-act/">California Privacy Protection Agency CCPA rights</a></li>
+    <li><a href="https://www.oag.ca.gov/privacy/ccpa">California Attorney General CCPA page</a></li>
+  </ul>
+
+  <p class="note">This page is informational and is not legal advice.</p>
+</main>
+<footer>&copy; 2026 LifeSync. <a href="legal-index.html">Legal pages</a></footer>
+</body>
+</html>
