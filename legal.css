@@ -51,15 +51,11 @@ nav {
 .mark {
   width: 32px;
   height: 32px;
-  background: var(--primary);
-  border: 0.5px solid var(--primary-light);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  flex-shrink: 0;
+  object-fit: cover;
 }
-
-.mark svg { width: 17px; height: 17px; fill: var(--periwinkle); }
 
 .nav-links {
   display: flex;
