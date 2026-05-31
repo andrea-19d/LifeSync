@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /favicon.ico
+
 Sitemap: https://www.lifesyncdownload.com/sitemap.xml
