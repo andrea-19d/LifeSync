@@ -174,21 +174,6 @@
       position: relative; overflow: hidden;
     }
 
-    .glow1 {
-      position: absolute; top: -150px; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(11,57,72,0.5) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .glow2 {
-      position: absolute; bottom: -60px; left: 15%;
-      width: 380px; height: 380px;
-      background: radial-gradient(circle, rgba(65,97,101,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
     .hero-inner { position: relative; z-index: 1; max-width: 660px; }
 
     .badge {
@@ -486,6 +471,7 @@
       .info-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="motion.css" />
 </head>
 <body>
 
@@ -504,14 +490,12 @@
 </nav>
 
 <section class="hero">
-  <div class="glow1"></div>
-  <div class="glow2"></div>
   <div class="hero-inner">
     <div class="badge">
       <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       Productivity &amp; activity monitoring
     </div>
-    <h1>LifeSync Download<br><span class="teal">Sync your life.</span></h1>
+    <h1>LifeSync Download<br><span class="teal gradient-text">Sync your life.</span></h1>
     <p>Download LifeSync, an all-in-one productivity app for tasks, focus sessions, reminders, health insights, screen-time awareness, and collaborative planning.</p>
     <div class="ctas">
       <a href="#download" class="btn-p">
@@ -738,5 +722,6 @@
   </ul>
 </footer>
 
+<script src="motion.js" defer></script>
 </body>
 </html>
